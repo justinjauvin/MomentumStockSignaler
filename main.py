@@ -3,12 +3,10 @@ import requests
 import math
 from scipy import stats
 from statistics import mean
-from config import *
-
 
 class AlgorithmicTradingMomentum:
     def __init__(self):
-        self.base_url = "https://cloud.iexapis.com/"
+        self.SECRET_KEY = ""
         self.return_intervals = [
             "month1",
             "month3",
@@ -28,7 +26,7 @@ class AlgorithmicTradingMomentum:
 
 
     def getStockStats(self, symbol):
-        statistics_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/stats?token={SECRET_KEY}'
+        statistics_url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/stats?token={self.SECRET_KEY}'
         data = requests.get(statistics_url).json()
         return data
 
@@ -77,7 +75,7 @@ class AlgorithmicTradingMomentum:
 
         i = 0
         for symbol_group in stock_symbol_groups:
-            batch_request_url = f"https://sandbox.iexapis.com/stable/stock/market/batch?symbols={symbol_group}&types=stats&token={SECRET_KEY}"
+            batch_request_url = f"https://sandbox.iexapis.com/stable/stock/market/batch?symbols={symbol_group}&types=stats&token={self.SECRET_KEY}"
             data = requests.get(batch_request_url).json()
             symbols_list = symbol_group.split(',')
             for symbol in symbols_list:
